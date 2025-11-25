@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int main() 
+{
+    int population[] = 
+	{
+        129227,
+        129988,
+        130756, 
+        131448, 
+        132129, 
+        132802, 
+        133450,
+        134091, 
+        134916, 
+        135922, 
+        136726, 
+        137646, 
+        138326, 
+        139232, 
+        140011, 
+        140541, 
+        141008, 
+        141212, 
+        141260, 
+        141175 
+    };
+    
+    int y;
+    scanf("%d", &y);
+    
+    int index = y - 2003;
+    int current = population[index];       
+    int previous = population[index - 1];  
+    double growth_rate = (current - previous) * 1000.0 / current;
+    
+    printf("%.2f", growth_rate);
+    return 0;
+}
