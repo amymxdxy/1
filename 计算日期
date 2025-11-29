@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+int isLeapYear(int year) {
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int getDayOfYear(int year, int month, int day) {
+    if (year < 1 || month < 1 || month > 12 || day < 1) {
+        return -1;
+    }
+
+    int monthDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    
+    if (isLeapYear(year)) {
+        monthDays[1] = 29;
+    }
+
+    if (day > monthDays[month - 1]) {
+        return -1;
+    }
+
+    int totalDays = 0;
+    for (int i = 0; i < month - 1; i++) {
+        totalDays += monthDays[i];
+    }
+    totalDays += day;
+
+    return totalDays;
+}
+
+int main() {
+    int year, month, day;
+    printf("请输入年 月 日（用空格分隔）：");
+    scanf("%d %d %d", &year, &month, &day);
+
+    int result = getDayOfYear(year, month, day);
+    if (result == -1) {
+        printf("输入的日期非法！\n");
+    } else {
+        printf("%d年%d月%d日是本年的第%d天\n", year, month, day, result);
+    }
+
+    return 0;
+}
