@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct {
+    char name[21];
+    int score;
+} Team;
+
+int compare(const void *a, const void *b) {
+    Team *teamA = (Team *)a;
+    Team *teamB = (Team *)b;
+    if (teamB->score != teamA->score) {
+        return teamB->score - teamA->score;
+    }
+    return strcmp(teamA->name, teamB->name);
+}
+
+int main() {
+    int teamCount;
+    scanf("%d", &teamCount);
+    
+    Team teams[100];
+    for (int i = 0; i < teamCount; i++) {
+        scanf("%s %d", teams[i].name, teams[i].score);
+    }
+    
+    qsort(teams, teamCount, sizeof(Team), compare);
+    
+    int ranks[100];
+    ranks[0] = 1;
+    for (int i = 1; i < teamCount; i++) {
+        if (teams[i].score == teams[i-1].score) {
+            ranks[i] = ranks[i-1];
+        } else {
+            ranks[i] = i + 1;
+        }
+    }
+    
+    // 核心调整：%4d 表示得分占4列，严格右对齐（可按需调整数字4改变宽度）
+    for (int i = 0; i < teamCount; i++) {
+        printf("%4d %-20s %4d\n", ranks[i], teams[i].name, teams[i].score);
+    }
+    
+    return 0;
+}
