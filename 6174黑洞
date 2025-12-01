@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int cmp_desc(const void *a, const void *b) {
+    return *(unsigned char*)b - *(unsigned char*)a;
+}
+
+int cmp_asc(const void *a, const void *b) {
+    return *(unsigned char*)a - *(unsigned char*)b;
+}
+
+int main() {
+    int num;
+    char digits[4];
+    scanf("%d", &num);
+
+    char temp[5];
+    sprintf(temp, "%04d", num);
+    strncpy(digits, temp, 4);
+
+    while (1) {
+        char max_digits[4], min_digits[4];
+        memcpy(max_digits, digits, 4);
+        memcpy(min_digits, digits, 4);
+
+        qsort(max_digits, 4, sizeof(char), cmp_desc);
+        qsort(min_digits, 4, sizeof(char), cmp_asc);
+
+        int max_num = atoi(max_digits);
+        int min_num = atoi(min_digits);
+        int diff = max_num - min_num;
+
+        printf("%04d-%04d=%d\n", max_num, min_num, diff);
+
+        if (diff == 6174) {
+            break;
+        }
+
+        sprintf(temp, "%04d", diff);
+        strncpy(digits, temp, 4);
+    }
+
+    return 0;
+}
