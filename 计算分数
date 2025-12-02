@@ -50,3 +50,72 @@ int main() {
 	}
     return 0;
 }
+
+
+//丐版，自己写的
+#include<stdio.h>
+
+int abs(int a)
+{
+	if(a < 0) {
+		a = -a;
+	} else {
+		a = a;
+	}
+}
+
+int gcd(int a, int b) {
+    a = abs(a);
+    b = abs(b);
+    while (b) {
+        int t = a % b;
+        a = b;
+        b = t;
+    }
+    return a;
+}
+
+
+
+int main()
+{
+	
+	int num1, den1, num2, den2;
+	char op, op1, op2; 
+	scanf("%d%c%d%c%d%c%d", &num1, &op1, &den1, &op, &num2, &op2, &den2);
+	
+	int sum, sum1;
+	if(op == '+'){
+		sum = num1*den2 + num2*den1;
+	} else {
+		sum = num1*den2 - num2*den1;
+	}
+	int d = den1*den2, d1;
+	
+	int num = gcd(sum, d);
+	if(d < 0)
+	{
+		d = -d;
+		printf("-%d%c%d",sum/num,op1,d/num); 
+	} else if(sum < 0) {
+		sum = -sum;
+		printf("-%d%c%d",sum/num,op1,d/num); 
+	} else {
+		printf("%d%c%d",sum/num,op1,d/num); 
+	}
+	
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
