@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>  
+
+int gcd(int a, int b) {
+    a = abs(a);  
+    b = abs(b);
+    while (b != 0) {
+        int temp = a % b;
+        a = b;
+        b = temp;
+    }
+    return a;
+}
+
+void fraction_calc(int num1, int den1, int num2, int den2, char op) 
+{
+    int res_num, res_den;
+    if (op == '+') {
+        res_num = num1 * den2 + num2 * den1;
+    } else if (op == '-') {
+        res_num = num1 * den2 - num2 * den1;
+    }
+    res_den = den1 * den2;
+
+    if (res_den < 0) {
+        res_num = -res_num;
+        res_den = -res_den;
+    }
+
+    int common_divisor = gcd(res_num, res_den);
+    res_num /= common_divisor;
+    res_den /= common_divisor;
+
+    if (res_den == 1) {
+        printf("%d\n", res_num);
+    } else if (res_num == 0) {
+        printf("0\n");
+    } else {
+        printf("%d/%d\n", res_num, res_den);
+    }
+}
+
+int main() {
+    int num1, den1, num2, den2;
+    char op1, op, op2;  
+
+	while(scanf("%d%c%d%c%d%c%d", &num1, &op1, &den1, &op, &num2, &op2, &den2) == 7)
+	{
+		fraction_calc(num1, den1, num2, den2, op); 
+	}
+    return 0;
+}
