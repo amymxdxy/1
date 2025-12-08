@@ -1,0 +1,44 @@
+#include<stdio.h>
+#define N 100
+int main() {
+	int n;
+	scanf("%d",&n);
+	int a[N][N];
+	
+	for(int i = 0; i < n; i++) {
+		for(int j = 0; j < n; j++) {
+			scanf("%d",&a[i][j]);
+		}
+	} 
+
+	int max_width = 0;
+    int max_height = 0;
+
+	for(int i = 0; i < n; i++) {
+		for(int j = 0; j < n; j++) {
+			if(a[i][j] == 0) {
+				int num = 0, num1 = 0;
+				for(int k = j; k < n && a[i][k] == 0; k++) {
+					num++;
+				}
+				for(int l = i; l < n && a[l][j] == 0; l++) {
+					num1++;
+				}
+				if(num > max_width) {
+                    max_width = num;
+                }
+                if(num1 > max_height) {
+                    max_height = num1;
+                }
+			}
+		}
+	}
+	
+	int d = 0;
+    if(max_width >= 2 && max_height >= 2) {
+        d = (max_width - 2) * (max_height - 2);
+    }
+    printf("%d",d);
+	
+	return 0;  
+} 
